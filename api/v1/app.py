@@ -19,6 +19,9 @@ def close_session(exc):
     """
     storage.close()
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return {"error": "Not found"}, 404
 
 if __name__ == "__main__":
-    app.run(host=getenv("HBNB_API_HOST"), port=getenv("HBNB_API_PORT"))
+    app.run(host=getenv("HBNB_API_HOST"), port=getenv("HBNB_API_PORT"), debug=True)
