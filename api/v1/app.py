@@ -22,7 +22,10 @@ def close_session(exc):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Manage not found error.
+    """
     return {"error": "Not found"}, 404
 
 if __name__ == "__main__":
-    app.run(host=getenv("HBNB_API_HOST"), port=getenv("HBNB_API_PORT"), debug=True)
+    app.run(host=getenv("HBNB_API_HOST"), port=getenv("HBNB_API_PORT"))
