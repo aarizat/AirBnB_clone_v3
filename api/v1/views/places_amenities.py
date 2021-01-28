@@ -37,7 +37,7 @@ def delete_post_amenity_place(place_id, amenity_id):
     """
     place = storage.get(Place, place_id)
     amenity = storage.get(Amenity, amenity_id)
-    if review is None or amenity is None:
+    if place is None or amenity is None:
         abort(404)
     if request.method == "DELETE":
         if getenv('HBNB_TYPE_STORAGE') == 'db':
@@ -46,14 +46,16 @@ def delete_post_amenity_place(place_id, amenity_id):
             list_res = place.amenity_ids
         if amenity not in list_res:
             abort(404)
-        place.amenities.remove(amenity)
+        list_res.remove(amenity)
         place.save()
         return jsonify({}), 200
     if request.method == "POST":
         if getenv('HBNB_TYPE_STORAGE') == 'db':
             list_res = place.amenities
+            print(list_res)
         else:
             list_res = place.amenity_ids
         if amenity not in list_res:
             list_res.append(amenity)
-        return jsonify(amenity.to_dict()), 200
+            place.save()
+        return jsonify(amenity.to_dict()), 201
