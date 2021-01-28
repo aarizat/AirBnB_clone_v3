@@ -17,7 +17,7 @@ def cities_by_state(state_id):
     Retrieve all of cities that matches with stated_id.
     """
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
     if request.method == "GET":
         cities = storage.all(City).values()
@@ -42,7 +42,7 @@ def get_city(city_id):
     """Retrieves a City object
     """
     city = storage.get(City, city_id)
-    if not city:
+    if city is None:
         abort(404)
     if request.method == "GET":
         return jsonify(city.to_dict())
