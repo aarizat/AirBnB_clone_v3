@@ -38,6 +38,7 @@ def get_reviews(place_id):
             abort(400, "Missing text")
         else:
             body["place_id"] = place_id
+            body["user_id"] = place.user_id
             obj = Review(**body)
             storage.new(obj)
             storage.save()
