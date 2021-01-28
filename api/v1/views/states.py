@@ -60,14 +60,12 @@ def add_state_by_header():
 @app_views.route('/states/<state_id>', methods=["PUT"], strict_slashes=False)
 def update_state_by_header(state_id):
     body = request.get_json(silent=True)
-    if dict is None:
+    if body is None:
         abort(400, "Not a JSON")
-    else:
-        obj = storage.get(State, state_id)
-        if obj is None:
-            abort(404)
-        if "name" in body:
-                obj.name = body['name']
-                storage.save()
-
+    obj = storage.get(State, state_id)
+    if obj is None:
+        abort(404)
+    if "name" in body:
+        obj.name = body['name']
+        storage.save()
     return jsonify(obj.to_dict()), 200
