@@ -24,7 +24,7 @@ def cities_by_state(state_id):
         return jsonify([city.to_dict() for city in cities
                         if city.state_id == state_id])
     if request.method == "POST":
-        body = request.get_json()
+        body = request.get_json(silent=True)
         if body is None:
             abort(400, "Not a JSON")
         elif "name" not in body:
