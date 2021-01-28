@@ -61,9 +61,9 @@ def get_place(place_id):
         body = request.get_json(silent=True)
         if body is None:
             abort(400, "Not a JSON")
-        _dict = {k: v for k, v in body.items() if k not in
-                 ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
-                 }
-        obj = Place(**_dict)
+        for k, v in body.items():
+            if k not in ['id', 'user_id', 'city_id',
+                         'created_at', 'updated_at']:
+                setattr(place, k, v)
         storage.save()
-        return jsonify(obj.to_dict()), 200
+        return jsonify(place.to_dict()), 200

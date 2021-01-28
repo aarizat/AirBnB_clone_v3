@@ -77,6 +77,6 @@ def update_usr_by_header(user_id):
         abort(404)
     for key, value in body.items():
         if key not in ("id", "email", "created_at", "updated_at"):
-            exec("obj." + str(key) + "=" + "'" + value + "'")
-            storage.save()
+            setattr(obj, key, value)
+    storage.save()
     return jsonify(storage.get(User, user_id).to_dict()), 200
