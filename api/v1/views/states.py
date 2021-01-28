@@ -54,7 +54,7 @@ def add_state_by_header():
         obj = State(**body)
         storage.new(obj)
         storage.save()
-        return jsonify(storage.get(State, obj.id).to_dict()), 200
+        return jsonify(storage.get(State, obj.id).to_dict()), 201
 
 
 @app_views.route('/states/<state_id>', methods=["PUT"], strict_slashes=False)
