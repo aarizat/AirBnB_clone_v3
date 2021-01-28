@@ -30,6 +30,7 @@ def cities_by_state(state_id):
         elif "name" not in body:
             abort(400, "Missing name")
         else:
+            body["state_id"] = state_id
             obj = City(**body)
             storage.new(obj)
             storage.save()
