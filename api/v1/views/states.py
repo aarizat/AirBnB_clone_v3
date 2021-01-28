@@ -16,7 +16,7 @@ def return_all_states():
     """
     states_lst = storage.all(State)
     states_dict = [states.to_dict() for states in states_lst.values()]
-    return states_dict
+    return jsonify(states_dict)
 
 
 @app_views.route('states/<state_id>', methods=["GET"], strict_slashes=False)
@@ -40,7 +40,7 @@ def delete_object(state_id):
         abort(404)
     storage.delete(obj)
     storage.save()
-    return {}, 200
+    return jsonify({}), 200
 
 
 @app_views.route('/states', methods=["POST"], strict_slashes=False)
