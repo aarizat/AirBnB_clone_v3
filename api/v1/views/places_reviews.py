@@ -65,6 +65,6 @@ def get_review(review_id):
         for k, v in body.items():
             if k not in ['id', 'user_id', 'place_id',
                          'created_at', 'updated_at']:
-                setattr(review, key, value)
+                setattr(review, k, v)
         storage.save()
         return jsonify(obj.to_dict()), 200
