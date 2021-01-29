@@ -6,6 +6,7 @@ from api.v1.views import app_views
 from flask import jsonify, redirect, url_for, request, abort
 from models.user import User
 from models import storage
+import hashlib
 
 
 @app_views.route('/users', methods=["GET"], strict_slashes=False)
@@ -76,6 +77,8 @@ def update_usr_by_header(user_id):
     if obj is None:
         abort(404)
     for key, value in body.items():
+        if key == "password":
+            value = hashlib.md5(value.encode("utf-8")).hexdigest()
         if key not in ("id", "email", "created_at", "updated_at"):
             setattr(obj, key, value)
     storage.save()
