@@ -52,10 +52,10 @@ def delete_post_amenity_place(place_id, amenity_id):
     if request.method == "POST":
         if getenv('HBNB_TYPE_STORAGE') == 'db':
             list_res = place.amenities
-            print(list_res)
         else:
             list_res = place.amenity_ids
         if amenity not in list_res:
             list_res.append(amenity)
             place.save()
-        return jsonify(amenity.to_dict()), 201
+            return jsonify(amenity.to_dict()), 201
+        return jsonify(amenity.to_dict()), 200
